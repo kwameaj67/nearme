@@ -3,9 +3,15 @@ import { createStackNavigator, createAppContainer, createSwitchNavigator} from '
 import Homescreen from './src/screens/Homescreen';
 import SignUp from './src/screens/Auth/Signup';
 import AuthLoading from './src/screens/Auth/AuthLoading';
+import Camera from './src/screens/Mainscreens/Camera';
+import Message from './src/screens/Mainscreens/Message';
 
 const AppStack = createStackNavigator(
-  {Home: Homescreen},
+  {Home: Homescreen,
+   Cam: Camera,
+   Msg: Message 
+  },
+
   {
     initialRouteName: "Home"
   }

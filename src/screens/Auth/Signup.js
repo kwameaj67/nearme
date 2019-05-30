@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, Text, View, TouchableOpacity, StyleSheet, TextInput, PermissionsAndroid} from 'react-native';
+import { Platform, Text, View, TouchableOpacity, StyleSheet, TextInput, PermissionsAndroid,} from 'react-native';
 export default class Signup extends React.Component{
     static navigationOptions = {
         title: "Welcome"
@@ -62,7 +62,8 @@ export default class Signup extends React.Component{
             }else{
                
                 if(Platform.OS == 'android'){
-                    this._requestLocatonPermission();
+                    this.props.navigation.navigate("App")
+                    //this._requestLocatonPermission();
                 }else{
                     this.props.navigation.navigate("App")
                 }  
