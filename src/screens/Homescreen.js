@@ -13,7 +13,7 @@ export default class Homescreen extends React.Component{
        headerTitle: "Home",
 
        headerLeft: (
-        <Button color='black' icon="add-a-photo" mode="text"  onPress ={() => navigation.navigate("Cam")}/>
+        <Button  color='black' icon="add-a-photo" mode="text"  onPress ={() => navigation.navigate("Cam")}/>
 
        ),
        headerRight: (
@@ -25,12 +25,10 @@ export default class Homescreen extends React.Component{
                 DMs
            </Button>
            </View>
-       )
+       ),
+       
     }
    }
-
-  
-  
 
    _handleIndexChange =index=> {
        this.setState({index: index});
@@ -44,14 +42,12 @@ export default class Homescreen extends React.Component{
        settings: Settings
    })
 
-   
-
     state={
         index :0,
         routes : [
             {key: 'home', title: "Home", icon: 'home', color:'#0879F0'},
             {key: 'liked', title: "Most Liked", icon: 'favorite-border', color: '#F41947'},
-            {key: 'commented', title: "Most Commented", icon: 'home', color:'#FA9F12'},
+            {key: 'commented', title: "Most Commented", icon: 'chat', color:'#FA9F12'},
             {key: 'settings', title: "Settings", icon: 'menu', color: '#9C12FA'},
         ]
     }
@@ -75,24 +71,15 @@ export default class Homescreen extends React.Component{
 
     render(){
         return(
+            
            <BottomNavigation 
             navigationState= {this.state}
             renderScene = {this._renderScene}
-            onIndexChange = {this._handleIndexChange}
-           />
+            onIndexChange = {this._handleIndexChange}/>
+          
         );
     }
 }
 
-class HeaderTitle extends React.Component {
-    render(){
-        return(
-            <View>
-                <Button mode="text" icon="add-photo">
-                    Add Photo
-                </Button>
-            </View>
-        )
-    }
-}
+
 
