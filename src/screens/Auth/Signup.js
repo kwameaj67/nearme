@@ -85,14 +85,13 @@ export default class Signup extends React.Component{
 
             if(granted == PermissionsAndroid.RESULTS.GRANTED){
                 console.log("Granted");
-               
                 this.props.navigation.navigate("App");
             }else {
                 
                 console.log("Location Permission Denied");
             }
         }catch(err){
-          
+         
             console.warn(err);
         }
     }
