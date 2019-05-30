@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import {Button, BottomNavigation} from 'react-native-paper';
 import Home from './BottomNavigationScreens/Home';
 import MostLiked from './BottomNavigationScreens/MostLiked';

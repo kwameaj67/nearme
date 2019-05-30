@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text , FAB, } from 'react-native-paper';
+import { FAB, } from 'react-native-paper';
 import {StyleSheet, View} from 'react-native'
 
 export default class Home extends React.Component{
