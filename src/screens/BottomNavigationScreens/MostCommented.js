@@ -3,6 +3,8 @@ import { FAB, } from 'react-native-paper';
 import {StyleSheet, View} from 'react-native'
 
 export default class MostCommented extends React.Component{
+
+   
     render(){
         return(
             <View style={{flex: 1}}>
@@ -10,6 +12,7 @@ export default class MostCommented extends React.Component{
                  style={styles.fab}
                  icon ="add"
                  color ="white"
+                 onPress ={() => this.props.route.navigation.navigate("Post")}
                     />
             </View> 
         )

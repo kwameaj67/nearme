@@ -10,6 +10,7 @@ export default class MostLiked extends React.Component{
              style={styles.fab}
              icon ="add"
              color ="white"
+             onPress ={() => this.props.route.navigation.navigate("Post")}
                 />
             </View> 
         )

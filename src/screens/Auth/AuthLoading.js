@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, StatusBar, AsyncStorage,View, StyleSheet} from 'react-native';
 
+
 export default class AuthLoader extends React.Component {
     constructor(props){
         super(props);
@@ -9,17 +10,15 @@ export default class AuthLoader extends React.Component {
 
     _bootstrapAuth = async () =>{
         try{
-            const userToken = await AsyncStorage.getItem('userToken');
+            const userToken = await AsyncStorage.getItem('userID');
             if(userToken == null){
                 this.props.navigation.navigate("Auth");
             }else {
                 this.props.navigation.navigate("App");
-            }
-            
+            }      
         }catch{
 
-        }
-         
+        }    
     }
 
     render(){
@@ -28,8 +27,7 @@ export default class AuthLoader extends React.Component {
             <ActivityIndicator size='large'/>
             <StatusBar barStyle='default' />    
             </View>   
-        )
-       
+        )    
     }
 }
 

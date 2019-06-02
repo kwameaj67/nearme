@@ -1,26 +1,33 @@
 import React from 'react';
-import { Platform, Text, View, TouchableOpacity, StyleSheet, TextInput, PermissionsAndroid,} from 'react-native';
+import * as  firebase from 'firebase';
+import { AsyncStorage, LayoutAnimation, Platform, Text, View, TouchableOpacity, StyleSheet, TextInput, PermissionsAndroid,} from 'react-native';
+import Loading from '../../Components/Loading';
+//require("firebase/firestore");
+
+
+
 export default class Signup extends React.Component{
     static navigationOptions = {
         title: "Welcome"
     }
+
 
     state ={
         gender:"",
         age:"18",
         selectedMaleColor: "#09B351",
         selectedFemaleColor: "#09B351",
-      
+        loading: false
        // ""   
     }
 
     _onPress =(gender)=>{
+        
         if(gender == "Male"){
             this.setState({
                 gender: "Male",
                 selectedMaleColor: "#1980F4",
-                selectedFemaleColor: "#09B351"
-                
+                selectedFemaleColor: "#09B351"     
             })
             
         }else {
@@ -30,6 +37,8 @@ export default class Signup extends React.Component{
                 selectedMaleColor: "#09B351",
             })
         }
+
+       
     }
 
   
@@ -60,13 +69,26 @@ export default class Signup extends React.Component{
             if(this.state.gender == ""){
                 alert("Please select your Gender");
             }else{
-               
-                if(Platform.OS == 'android'){
-                    this.props.navigation.navigate("App")
-                    //this._requestLocatonPermission();
-                }else{
-                    this.props.navigation.navigate("App")
-                }  
+                this.setState({loading:true});
+                firebase.auth().signInAnonymously()
+                .then((res) => {
+                    console.log("SignedIn Anonymously") 
+                    AsyncStorage.setItem('userID', res.user.uid )
+                    AsyncStorage.getItem('userID', (err, result) => {
+                        this.props.navigation.navigate("App")
+                        console.log(result);
+                    })
+                    var user = {
+                        gender: this.state.gender,
+                        age: this.state.age,
+                    
+                    }
+                    
+                    AsyncStorage.setItem('gender', user.gender);
+                  
+                   
+                })
+                .catch((err) => console.log(err));
             }
             
         }
@@ -102,7 +124,6 @@ export default class Signup extends React.Component{
         return(
             <View style ={styles.mainContainer}>
             
-                
                 <View style={styles.welcomeTextContainer}>
                     <Text style={{fontSize: 22, textAlign: 'center'}}>Welcome to Near Me</Text> 
                 </View>
@@ -128,15 +149,17 @@ export default class Signup extends React.Component{
                 <View style ={{flexDirection: 'row'}}>
                 <TouchableOpacity  style={styles.touchNextButton} onPress={() =>this._checkAge(this.state.age)}>
                         <Text>Next</Text>
-                    </TouchableOpacity>
-
-                    
+                    </TouchableOpacity>   
                 </View>
-                
+                <Loading 
+                    loading={this.state.loading}
+                />
             </View>
         );
     }
 }
+
+
 
 var styles = StyleSheet.create({
     mainContainer:{   

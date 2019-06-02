@@ -17,17 +17,34 @@ export default class Homescreen extends React.Component{
 
        ),
        headerRight: (
-           <View style={{flexDirection: 'row'}}> 
-           <Button color='#0879F0' icon = "spa" mode="text" onPress ={ () => navigation.navigate('Msg')}>
-                Karma : 0
+          <View style={{flex:1, flexDirection:"row"}}>
+             <Button color='#0879F0'  mode="text" onPress ={ () => navigation.navigate('Post')}>
+                POST
            </Button>
            <Button color='#0879F0' icon = "near-me" mode="text" onPress ={ () => navigation.navigate('Msg')}>
                 DMs
            </Button>
-           </View>
+          </View>
+          
+           
        ),
        
     }
+   }
+
+   constructor(props){
+       super(props);
+       this.state ={
+            index :0,
+            routes : [
+                {key: 'home', title: "Home", icon: 'home', color:'#0879F0', navigation: this.props.navigation},
+                {key: 'liked', title: "Most Liked", icon: 'favorite-border', color: '#F41947', navigation: this.props.navigation},
+                {key: 'commented', title: "Most Commented", icon: 'chat', color:'#FA9F12', navigation: this.props.navigation},
+                {key: 'settings', title: "Settings", icon: 'menu', color: '#9C12FA', navigation: this.props.navigation},
+            ]
+        
+    
+       }
    }
 
    _handleIndexChange =index=> {
@@ -42,32 +59,9 @@ export default class Homescreen extends React.Component{
        settings: Settings
    })
 
-    state={
-        index :0,
-        routes : [
-            {key: 'home', title: "Home", icon: 'home', color:'#0879F0'},
-            {key: 'liked', title: "Most Liked", icon: 'favorite-border', color: '#F41947'},
-            {key: 'commented', title: "Most Commented", icon: 'chat', color:'#FA9F12'},
-            {key: 'settings', title: "Settings", icon: 'menu', color: '#9C12FA'},
-        ]
-    }
-
-    /*
-    componentDidMount(){
-         navigator.geolocation.getCurrentPosition((position) => {
-            this.setState({
-                latitude : position.coords.latitude,
-                longitude: position.coords.longitude
-            });
-        },
-        (error) => {this.setState({
-            error: error.message
-        })
-        console.warn(error)
-        },
-        {enableHighAccuracy:true}
-        )
-    } */
+    
+    
+  
 
     render(){
         return(

@@ -3,6 +3,25 @@ import { FAB, } from 'react-native-paper';
 import {StyleSheet, View} from 'react-native'
 
 export default class Home extends React.Component{
+    state = {
+        latitude: null,
+        longitude: null
+    }
+    componentDidMount(){
+        navigator.geolocation.getCurrentPosition((position) => {
+           this.setState({
+               latitude : position.coords.latitude,
+               longitude: position.coords.longitude
+           });
+       },
+       (error) => {this.setState({
+           error: error.message
+       })
+       console.warn(error)
+       },
+       {enableHighAccuracy:true}
+       )
+   } 
     render(){
         return(
             <View style={{flex: 1}}>
@@ -10,7 +29,8 @@ export default class Home extends React.Component{
                 style={styles.fab}
                 icon ="add"
                 color ="white"
-                />
+                onPress ={() => this.props.route.navigation.navigate("Post")}
+                /> 
             </View>           
         )
     }
