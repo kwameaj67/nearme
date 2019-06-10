@@ -1,8 +1,8 @@
 import React from 'react';
-import * as  firebase from 'firebase';
+import firebase from '../../Utils/Firebase';
 import { AsyncStorage, LayoutAnimation, Platform, Text, View, TouchableOpacity, StyleSheet, TextInput, PermissionsAndroid,} from 'react-native';
 import Loading from '../../Components/Loading';
-//require("firebase/firestore");
+import axios from 'axios'
 
 
 
@@ -10,8 +10,6 @@ export default class Signup extends React.Component{
     static navigationOptions = {
         title: "Welcome"
     }
-
-
     state ={
         gender:"",
         age:"18",
@@ -36,20 +34,14 @@ export default class Signup extends React.Component{
                 selectedFemaleColor: "#F41947",
                 selectedMaleColor: "#09B351",
             })
-        }
-
-       
+        }  
     }
-
-  
-
     _handleOnTextChange =(target) => {
         this.setState({
             age: target.nativeEvent.text
             }
         )
     }
-
    
 
     _checkAge(age){
@@ -75,17 +67,22 @@ export default class Signup extends React.Component{
                     console.log("SignedIn Anonymously") 
                     AsyncStorage.setItem('userID', res.user.uid )
                     AsyncStorage.getItem('userID', (err, result) => {
-                        this.props.navigation.navigate("App")
+                        
                         console.log(result);
                     })
                     var user = {
+                        uid: res.user.uid,
                         gender: this.state.gender,
                         age: this.state.age,
-                    
+                        karma:0
                     }
                     
                     AsyncStorage.setItem('gender', user.gender);
-                  
+                    //firebase.database().ref('users').child(ref.user.uid).set(user);
+                    axios.post('http://192.168.100.14:3089/newUser', user).then((res)=>{
+                        this.props.navigation.navigate("App")
+                        console.log("Done")
+                    }).catch((err)=> console.log(err))
                    
                 })
                 .catch((err) => console.log(err));
@@ -123,7 +120,6 @@ export default class Signup extends React.Component{
        
         return(
             <View style ={styles.mainContainer}>
-            
                 <View style={styles.welcomeTextContainer}>
                     <Text style={{fontSize: 22, textAlign: 'center'}}>Welcome to Near Me</Text> 
                 </View>
