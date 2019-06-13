@@ -1,11 +1,18 @@
 import React from 'react';
 import { FAB, } from 'react-native-paper';
-import {StyleSheet, View} from 'react-native'
-
+import {StyleSheet, View, StatusBar} from 'react-native'
+import {AntDesign} from '@expo/vector-icons'
 export default class Home extends React.Component{
     state = {
         latitude: null,
         longitude: null
+    }
+
+    constructor(props){
+        super(props);
+
+       // console.log(props)
+
     }
     componentDidMount(){
         navigator.geolocation.getCurrentPosition((position) => {
@@ -25,18 +32,22 @@ export default class Home extends React.Component{
     render(){
         return(
             <View style={{flex: 1}}>
-                 <FAB
+                <FAB
                 style={styles.fab}
                 icon ="add"
                 color ="white"
-                onPress ={() => this.props.route.navigation.navigate("Post")}
+                onPress ={() => this.props.navigation.navigate("Post")}
                 /> 
+                <AntDesign name="home" size={32} />
             </View>           
         )
     }
 }
 
 const styles = StyleSheet.create({
+    statusBar : {
+        height: 50
+    },
     fab: {
         backgroundColor: '#0879F0',
         position: 'absolute',

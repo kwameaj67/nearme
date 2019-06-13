@@ -67,7 +67,8 @@ export default class Signup extends React.Component{
                     console.log("SignedIn Anonymously") 
                     AsyncStorage.setItem('userID', res.user.uid )
                     AsyncStorage.getItem('userID', (err, result) => {
-                        
+                        this.props.navigation.navigate("App")
+                        console.log("Done")
                         console.log(result);
                     })
                     var user = {
@@ -79,9 +80,8 @@ export default class Signup extends React.Component{
                     
                     AsyncStorage.setItem('gender', user.gender);
                     //firebase.database().ref('users').child(ref.user.uid).set(user);
-                    axios.post('http://192.168.100.14:3089/newUser', user).then((res)=>{
-                        this.props.navigation.navigate("App")
-                        console.log("Done")
+                    axios.post('http://127.0.0.1:3089/newUser', user).then((res)=>{
+                       
                     }).catch((err)=> console.log(err))
                    
                 })
