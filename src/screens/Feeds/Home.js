@@ -1,8 +1,12 @@
 import React from 'react';
 import { FAB, } from 'react-native-paper';
-import {StyleSheet, View, StatusBar} from 'react-native'
-import {AntDesign} from '@expo/vector-icons'
+import {StyleSheet, View} from 'react-native'
+import FeedNavigator from '../../navigation/FeedsNavigator';
+
+
 export default class Home extends React.Component{
+
+    
     state = {
         latitude: null,
         longitude: null
@@ -31,15 +35,7 @@ export default class Home extends React.Component{
    } 
     render(){
         return(
-            <View style={{flex: 1}}>
-                <FAB
-                style={styles.fab}
-                icon ="add"
-                color ="white"
-                onPress ={() => this.props.navigation.navigate("Post")}
-                /> 
-                <AntDesign name="home" size={32} />
-            </View>           
+                <FeedNavigator />       
         )
     }
 }

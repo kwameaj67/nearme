@@ -12,7 +12,7 @@ export default class MostCommented extends React.Component{
                  style={styles.fab}
                  icon ="add"
                  color ="white"
-                 onPress ={() => this.props.route.navigation.navigate("Post")}
+                 onPress ={() => this.props.navigation.navigate("Post")}
                     />
             </View> 
         )

@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, TouchableHighlight, StyleSheet} from 'react-native';
-
 import {AntDesign, Feather} from '@expo/vector-icons'
 //import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../constants/Colors';
@@ -15,8 +14,10 @@ export default class Homescreen extends React.Component{
        headerTitle: "Home",
     
        headerLeft: (
-           <TouchableHighlight style={styles.topButtons}>
-                 <AntDesign name="camerao" color={Colors.tintColor} size={24}/>
+           <TouchableHighlight style={styles.topButtons}
+            onPress={() =>navigation.navigate("Post")} underlayColor="white">
+                 <AntDesign name="plus" color={Colors.tintColor} size={24}/>
+                 
            </TouchableHighlight>  
        ),
        headerRight: (
@@ -27,7 +28,9 @@ export default class Homescreen extends React.Component{
                       <AntDesign name="hearto" color={Colors.tintColor} size={24}/>
                  </View>  
              </TouchableHighlight>
-             <TouchableHighlight style={styles.topButtons}>
+             <TouchableHighlight style={styles.topButtons} underlayColor="white"
+             onPress={() =>navigation.navigate("Messages")}
+             >
                  <Feather name="send" color={Colors.tintColor} size={24}/>
            </TouchableHighlight>
           </View> ),

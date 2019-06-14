@@ -31,6 +31,12 @@ HomeStack.navigationOptions = {
 const Feeds = createStackNavigator({
     Indes : FeedsHome,
     Post : Post
+}, {
+    defaultNavigationOptions: {
+        headerStyle: {
+          elevation: 0
+        }
+    }
 })
 
 Feeds.navigationOptions = {
@@ -39,7 +45,8 @@ Feeds.navigationOptions = {
         <TabBarIcon name="message1"
                     icon ="ant"
                     focused = {focused} />
-    ) 
+    )
+     
 }
 
 const SettingsStack = createStackNavigator({

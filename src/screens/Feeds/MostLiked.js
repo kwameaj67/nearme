@@ -1,17 +1,12 @@
 import React from 'react';
-import {FAB, } from 'react-native-paper';
+
 import {StyleSheet, View} from 'react-native'
 
 export default class MostLiked extends React.Component{
     render(){
         return(
             <View style={{flex: 1}}>
-            <FAB
-             style={styles.fab}
-             icon ="add"
-             color ="white"
-             onPress ={() => this.props.route.navigation.navigate("Post")}
-                />
+           
             </View> 
         )
     }
