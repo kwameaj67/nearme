@@ -15,8 +15,7 @@ export default class Home extends React.Component{
     constructor(props){
         super(props);
 
-       // console.log(props)
-
+       // console.log(props
     }
     componentDidMount(){
         navigator.geolocation.getCurrentPosition((position) => {

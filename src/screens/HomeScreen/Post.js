@@ -1,11 +1,24 @@
 import React from 'react';
-import {View, Text, TouchableHighlight, StyleSheet, TextInput} from 'react-native';
+import {View, Text, TouchableHighlight, StyleSheet, TextInput, AsyncStorage} from 'react-native';
 import TapIcon from '../../Components/TabBarIcon';
-import {FAB} from 'react-native-paper'
+import {FAB} from 'react-native-paper';
+
 
 export default class Post extends React.Component{
 
     state= {
+        post: {
+            location:{
+                lat: null,
+                long: null
+            },
+            color: 'black',
+            hashtags: [],
+            text: '',
+            image: null,
+            type: 'text'
+        },
+
         selectedColor: "black",
         colors: [
             '#2091DA',
@@ -17,17 +30,36 @@ export default class Post extends React.Component{
         ]
     }
 
+    _handleOnTextChange=(target)=>{
+        this.setState({text: target.nativeEvent.text});
+    }
+
     componentDidMount=()=>{
         this.gerarateRandomColor();
+       const loc = navigator.geolocation.getCurrentPosition((position) => {
+                    this.setState({
+                     post:{
+                        location: {
+                            lat: position.coords.latitude,
+                            long: position.coords.longitude
+                        }
+                    }
+                })
+        },(positionError) => {
+            console.log(positionError)
+        }, { enableHighAccuracy: true});
     }
 
     gerarateRandomColor=()=>{
         const size = this.state.colors.length;
-
         const colorNumber = Math.floor( Math.random()* (size),0)
-
-        this.setState({selectedColor: this.state.colors[colorNumber]})
+        this.setState({selectedColor: this.state.colors[colorNumber],
+                post: {
+                    color: this.state.colors[colorNumber]
+                }
+        })
     }
+
     static navigationOptions=({navigation}) =>{
         return{
         title: "Write a Post",
@@ -40,11 +72,17 @@ export default class Post extends React.Component{
         
     }
     }
-    render(){
-        
+    render(){  
         return(
             <View style={styles.container} >
-                <TextInput  scrollEnabled={true} multiline={true} maxLength={250} style={[styles.textInputStyle]} placeholder="What's Happening? Share with the world"></TextInput>
+                <TextInput
+                 scrollEnabled={true}
+                 multiline={true}
+                 maxLength={250}
+                 style={[styles.textInputStyle]}
+                 placeholder="What's Happening? Share with the world"
+                 onChange ={(target) => this._handleOnTextChange(target)}
+                 ></TextInput>
                 <FAB
                  style={[styles.fab, {backgroundColor:this.state.selectedColor}]}
                  icon ="add"
@@ -52,7 +90,6 @@ export default class Post extends React.Component{
                  onPress ={() => this.props.navigation.goBack()}
                     />
             </View>
-           
         )
     }
 }
@@ -61,7 +98,7 @@ const styles = StyleSheet.create({
     textInputStyle:{
         margin: 15,
         fontSize: 20,
-        height: 250,
+        height: 150
     },
 
     container: {
