@@ -2,11 +2,15 @@ import React from 'react';
 import {View, Text, TouchableHighlight, StyleSheet, TextInput, AsyncStorage} from 'react-native';
 import TapIcon from '../../Components/TabBarIcon';
 import {FAB} from 'react-native-paper';
+import axios from 'axios';
+import Loading from '../../Components/Loading';
+import LocationBar from '../../Components/LocationBar';
 
 
 export default class Post extends React.Component{
 
     state= {
+        loading: false,
         post: {
             location:{
                 lat: null,
@@ -31,33 +35,32 @@ export default class Post extends React.Component{
     }
 
     _handleOnTextChange=(target)=>{
-        this.setState({text: target.nativeEvent.text});
+        const newState = Object.assign({}, this.state);
+        newState.post.text = target.nativeEvent.text;
+        this.setState(newState);
     }
 
     componentDidMount=()=>{
         this.gerarateRandomColor();
-       const loc = navigator.geolocation.getCurrentPosition((position) => {
-                    this.setState({
-                     post:{
-                        location: {
-                            lat: position.coords.latitude,
-                            long: position.coords.longitude
-                        }
-                    }
-                })
+        navigator.geolocation.getCurrentPosition((position) => {
+                   var newState = Object.assign({}, this.state)
+                   newState.post.location.lat = position.coords.latitude;
+                   newState.post.location.long = position.coords.longitude;
+                   this.setState(newState);
+                // console.log(this.state);
         },(positionError) => {
             console.log(positionError)
         }, { enableHighAccuracy: true});
+
     }
 
     gerarateRandomColor=()=>{
         const size = this.state.colors.length;
         const colorNumber = Math.floor( Math.random()* (size),0)
-        this.setState({selectedColor: this.state.colors[colorNumber],
-                post: {
-                    color: this.state.colors[colorNumber]
-                }
-        })
+        var newState = Object.assign({}, this.state);
+        newState.selectedColor = this.state.colors[colorNumber];
+        newState.post.color=this.state.colors[colorNumber];
+        this.setState(newState);
     }
 
     static navigationOptions=({navigation}) =>{
@@ -70,11 +73,24 @@ export default class Post extends React.Component{
             </TouchableHighlight>
         ),
         
+       }
     }
+
+    _handlePostSubmit=()=>{
+            this.setState({loading: true})
+            console.log(this.state.post);
+                axios.post("https://near-me-api.herokuapp.com/post", this.state.post).then((res) => {
+                        this.setState({loading: false})
+                }).catch((err) => {
+                        this.setState({loading: false});
+                })
+            
+           
     }
     render(){  
         return(
-            <View style={styles.container} >
+            <View style={styles.container}>
+                <LocationBar lat={this.state.post.location.lat} long={this.state.post.location.long} />
                 <TextInput
                  scrollEnabled={true}
                  multiline={true}
@@ -83,11 +99,13 @@ export default class Post extends React.Component{
                  placeholder="What's Happening? Share with the world"
                  onChange ={(target) => this._handleOnTextChange(target)}
                  ></TextInput>
+                 <Loading loading={this.state.loading} />
                 <FAB
                  style={[styles.fab, {backgroundColor:this.state.selectedColor}]}
-                 icon ="add"
+                 icon = "check"
                  color ="white"
-                 onPress ={() => this.props.navigation.goBack()}
+                 onPress ={() => this._handlePostSubmit()}
+                 visible ={!this.state.loading}
                     />
             </View>
         )
@@ -96,6 +114,7 @@ export default class Post extends React.Component{
 
 const styles = StyleSheet.create({
     textInputStyle:{
+
         margin: 15,
         fontSize: 20,
         height: 150

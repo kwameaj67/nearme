@@ -85,7 +85,10 @@ export default  createBottomTabNavigator({
 animationEnabled: true, tabBarOptions: {
     activeTintColor: Colors.tintColor,
     style:{
-        borderTopColor: Colors.tintColor
+        borderTopColor: Colors.tintColor,
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
+        backgroundColor: "#E8E9E9"
     },
     labelStyle: {
         fontSize: 12
