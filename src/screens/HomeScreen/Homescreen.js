@@ -49,8 +49,6 @@ export default class Homescreen extends React.Component{
             <View>
                 <Text>Hi</Text>
             </View>
-        
-          
         );
     }
 }

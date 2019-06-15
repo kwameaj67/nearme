@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StatusBar, AsyncStorage,View, StyleSheet} from 'react-native';
+import {ActivityIndicator, AsyncStorage,View, StyleSheet} from 'react-native';
 
 
 export default class AuthLoader extends React.Component {

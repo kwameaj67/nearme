@@ -80,8 +80,8 @@ export default class Signup extends React.Component{
                     
                     AsyncStorage.setItem('gender', user.gender);
                     //firebase.database().ref('users').child(ref.user.uid).set(user);
-                    axios.post('http://127.0.0.1:3089/newUser', user).then((res)=>{
-                       
+                    axios.post('https://near-me-api.herokuapp.com/newUser', user).then((res)=>{
+                       console.log(res.data)
                     }).catch((err)=> console.log(err))
                    
                 })

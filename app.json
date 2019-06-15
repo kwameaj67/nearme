@@ -8,9 +8,6 @@
       "ios",
       "android"
     ],
-    "androidStatusBar": {
-      "barStyle": "light-content"
-    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

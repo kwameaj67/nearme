@@ -1,4 +1,4 @@
-const tintColor = '#D25627';
+const tintColor = '#2091DA';
 const supportingColor = '#E57D25';
 const dangerColor = '#d23a27';
 const vodafoneColor = '#d2274d';
