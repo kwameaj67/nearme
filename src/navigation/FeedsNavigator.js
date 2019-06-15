@@ -46,9 +46,18 @@ export default createAppContainer(createMaterialTopTabNavigator({
         showLabel: false,
         showIcon: true,
         style: {
-            backgroundColor: 'white'
+            backgroundColor: 'white',
+            borderBottomRightRadius:30,
+            borderBottomLeftRadius:30
         },
-        tabStyle: ''
+        indicatorStyle: {
+            width: 10,
+            borderRadius: 20,
+            marginLeft: 30,
+            backgroundColor: Colors.tintColor,
+            
+        }
+       
     },
     swipeEnabled: true,
 }
